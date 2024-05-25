@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ProfileTest2</string>
+        <!-- 이미지뷰에 표시할 기본 이미지 -->
+        <string name="placeholder_image">placeholder_image</string>
+
+        <!-- 프로필 이미지에 대한 설명 -->
+        <string name="profile_image">프로필 이미지</string>
+
+        <!-- 이름 입력란 힌트 -->
+        <string name="name_hint">이름을 입력하세요</string>
+
+        <!-- 사진 선택 버튼 텍스트 -->
+        <string name="select_photo_button">사진 선택</string>
+
+        <!-- 저장 버튼 텍스트 -->
+        <string name="save_button">저장</string>
+
+
+</resources>
