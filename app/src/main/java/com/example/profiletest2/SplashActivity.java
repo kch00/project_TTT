@@ -7,20 +7,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int SPLASH_DISPLAY_LENGTH = 2000; // 2 seconds
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // 2초 후에 로그인 화면으로 이동
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(mainIntent);
-                finish();
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // 현재 액티비티를 종료
             }
-        }, SPLASH_DISPLAY_LENGTH);
+        }, 2000); // 2000 밀리초 = 2초
     }
 }
