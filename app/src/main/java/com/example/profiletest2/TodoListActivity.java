@@ -11,10 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class TodoListActivity extends AppCompatActivity {
@@ -23,11 +22,18 @@ public class TodoListActivity extends AppCompatActivity {
     private ListView todoListView;
     private ArrayList<String> todoList;
     private TodoListAdapter adapter;
+    private DatabaseHelper db;
+    private int userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
+
+        db = new DatabaseHelper(this);
+
+        // 현재 사용자의 ID를 가져옵니다
+        userId = getIntent().getIntExtra("USER_ID", -1);
 
         tvEmpty = findViewById(R.id.tvEmpty);
         todoListView = findViewById(R.id.todoListView);
@@ -35,6 +41,9 @@ public class TodoListActivity extends AppCompatActivity {
 
         adapter = new TodoListAdapter(this, todoList);
         todoListView.setAdapter(adapter);
+
+        // TODO 리스트를 로드합니다
+        loadTodoList();
 
         ImageButton btnAddTodo = findViewById(R.id.btnAddTodo);
         btnAddTodo.setOnClickListener(new View.OnClickListener() {
@@ -70,22 +79,38 @@ public class TodoListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            String filename = data.getStringExtra("TODO_FILE");
-            if (filename != null) {
-                StringBuilder todoContent = new StringBuilder();
-                try (FileInputStream fis = openFileInput(filename);
-                     BufferedReader reader = new BufferedReader(new InputStreamReader(fis))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        todoContent.append(line);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                todoList.add(todoContent.toString());
+            String newTodo = data.getStringExtra("TODO_ITEM");
+            if (newTodo != null) {
+                todoList.add(newTodo);
                 adapter.notifyDataSetChanged();
                 updateUI();
+
+                // TODO 리스트를 저장합니다
+                saveTodoList();
+            }
+        }
+    }
+
+    private void saveTodoList() {
+        JSONArray jsonArray = new JSONArray();
+        for (String todo : todoList) {
+            jsonArray.put(todo);
+        }
+        db.insertTodoList(userId, jsonArray.toString());
+    }
+
+    private void loadTodoList() {
+        String todoListJson = db.getTodoList(userId);
+        if (todoListJson != null) {
+            try {
+                JSONArray jsonArray = new JSONArray(todoListJson);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    todoList.add(jsonArray.getString(i));
+                }
+                adapter.notifyDataSetChanged();
+                updateUI();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }

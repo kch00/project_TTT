@@ -8,39 +8,44 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnFeature1;
-    private Button btnFeature2;
-    private Button btnEditProfile;
+    private Button btnCheckInOut, btnTodoList, btnEditProfile;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnFeature1 = findViewById(R.id.btnFeature1);
-        btnFeature2 = findViewById(R.id.btnFeature2);
+        // 현재 사용자의 ID를 가져옵니다
+        userId = getIntent().getIntExtra("USER_ID", -1);
+
+        btnCheckInOut = findViewById(R.id.btnCheckInOut);
+        btnTodoList = findViewById(R.id.btnTodoList);
         btnEditProfile = findViewById(R.id.btnEditProfile);
 
-        btnFeature1.setOnClickListener(new View.OnClickListener() {
+        btnCheckInOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CheckInOutActivity.class);
+                intent.putExtra("USER_ID", userId);
                 startActivity(intent);
             }
         });
 
-        btnFeature2.setOnClickListener(new View.OnClickListener() {
+        btnTodoList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodoListActivity.class);
+                intent.putExtra("USER_ID", userId);
                 startActivity(intent);
             }
         });
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ProfileEditActivity.class);
+                intent.putExtra("USER_ID", userId);
                 startActivity(intent);
             }
         });

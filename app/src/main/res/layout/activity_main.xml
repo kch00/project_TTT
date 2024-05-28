@@ -5,8 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+        <TextView
+            android:id="@+id/tvCompanyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TTT"
+            android:textSize="18sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
+
         <Button
-            android:id="@+id/btnFeature1"
+            android:id="@+id/btnCheckInOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="출/퇴근"
@@ -15,12 +25,12 @@
             android:layout_margin="16dp"/>
 
         <Button
-            android:id="@+id/btnFeature2"
+            android:id="@+id/btnTodoList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TODO 리스트"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/btnFeature1"
+            android:layout_toEndOf="@+id/btnCheckInOut"
             android:layout_margin="16dp"/>
 
         <Button

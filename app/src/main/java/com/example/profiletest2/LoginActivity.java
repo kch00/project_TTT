@@ -36,10 +36,15 @@ public class LoginActivity extends AppCompatActivity {
                 if (username.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "모든 필드를 입력하세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    boolean isValid = db.checkUser(username, password);
+                    boolean isValid = db.checkUser(username, password, "Owner") || db.checkUser(username, password, "Employee");
                     if (isValid) {
+                        int userId = db.getUserId(username);
+                        String[] companyInfo = db.getCompanyInfo(userId);
                         Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("USER_ID", userId);
+                        intent.putExtra("UNIQUE_ID", companyInfo[0]);
+                        intent.putExtra("COMPANY_NAME", companyInfo[1]);
                         startActivity(intent);
                         finish();
                     } else {
