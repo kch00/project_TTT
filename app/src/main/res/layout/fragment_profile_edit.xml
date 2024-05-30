@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileEditActivity">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/profileImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:layout_gravity="center"
+        android:src="@drawable/ic_profile_placeholder"
+        android:contentDescription="Profile Image" />
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="이름"
-        android:layout_below="@id/profileImageView"
         android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp" />
+        android:hint="이름" />
 
     <Button
         android:id="@+id/btnSelectPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="사진 선택"
-        android:layout_below="@id/etName"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:text="사진 선택" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="저장"
-        android:layout_below="@id/btnSelectPhoto"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+        android:text="저장" />
+</LinearLayout>

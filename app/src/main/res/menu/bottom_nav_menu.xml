@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_checkinout"
+        android:icon="@drawable/ic_notifications"
+        android:title="출/퇴근" />
+    <item
+        android:id="@+id/navigation_todo"
+        android:icon="@drawable/ic_todo"
+        android:title="TODO List" />
+    <item
+        android:id="@+id/navigation_profile_edit"
+        android:icon="@drawable/ic_baseline_people_alt_24"
+        android:title="프로필 수정" />
+</menu>
