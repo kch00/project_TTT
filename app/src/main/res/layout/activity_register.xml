@@ -1,90 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
 
     <Button
-        android:id="@+id/btnBack"
+        android:id="@+id/btnBackToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="뒤로"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:text="뒤로가기"
+        android:layout_marginBottom="16dp" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="아이디"
-        android:layout_below="@id/btnBack"
-        android:layout_marginTop="16dp" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="비밀번호"
-        android:layout_below="@id/etUsername"
-        android:layout_marginTop="16dp"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/etConfirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="비밀번호 확인"
-        android:layout_below="@id/etPassword"
-        android:layout_marginTop="16dp"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/etUniqueId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="고유번호"
-        android:layout_below="@id/etConfirmPassword"
+        android:inputType="textPassword"
         android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/etCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="회사명"
-        android:layout_below="@id/etUniqueId"
-        android:layout_marginTop="16dp"
-        android:visibility="gone" />
+        android:hint="회사 이름"
+        android:inputType="text"
+        android:layout_marginTop="16dp" />
 
-    <RadioGroup
-        android:id="@+id/rgRole"
+    <EditText
+        android:id="@+id/etUniqueId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etCompanyName"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:hint="고유 ID"
+        android:inputType="text"
+        android:layout_marginTop="16dp" />
 
-        <RadioButton
-            android:id="@+id/rbOwner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="사장" />
-
-        <RadioButton
-            android:id="@+id/rbEmployee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="직원" />
-    </RadioGroup>
+    <CheckBox
+        android:id="@+id/cbOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사장"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="회원가입"
-        android:layout_below="@id/rgRole"
         android:layout_marginTop="16dp" />
-
-</RelativeLayout>
+</LinearLayout>

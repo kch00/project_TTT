@@ -26,15 +26,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ProfileEditActivity" android:label="TTT" />
+        <activity android:name=".LoginActivity" android:label="TTT" />
+        <activity android:name=".RegisterActivity" android:label="TTT" />
         <activity android:name=".MainActivity" android:exported="true" android:label="TTT">
             <meta-data android:name="android.app.lib_name" android:value="" />
         </activity>
-        <activity android:name=".TodoListActivity" android:label="TTT" />
-        <activity android:name=".AddTodoActivity" android:label="TTT" />
-        <activity android:name=".CheckInOutActivity" android:label="TTT" />
-        <activity android:name=".LoginActivity" android:label="TTT" />
-        <activity android:name=".RegisterActivity" android:label="TTT" />
+
     </application>
 
 </manifest>
