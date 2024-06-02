@@ -33,16 +33,21 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                // 여기에 실제 로그인 검증 로직을 추가합니다.
-                String registeredUsername = sharedPreferences.getString("name", "");
-                String registeredPassword = sharedPreferences.getString("password", "");
-
-                if (username.equals(registeredUsername) && password.equals(registeredPassword)) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                if (username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "아이디와 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "로그인 정보가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                    String registeredPassword = sharedPreferences.getString(username + "_password", null);
+                    if (registeredPassword != null && registeredPassword.equals(password)) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("currentUser", username);
+                        editor.apply();
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "아이디 또는 비밀번호가 올바르지 않습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

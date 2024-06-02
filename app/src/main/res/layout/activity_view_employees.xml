@@ -5,30 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".TodoFragment">
+    tools:context=".ViewEmployeesActivity">
 
-    <EditText
-        android:id="@+id/etTodoText"
+    <TextView
+        android:id="@+id/tvEmployeesProfiles"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="할일 항목 입력"
-        android:layout_marginBottom="16dp" />
-
-    <Button
-        android:id="@+id/btnAddTodo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="추가"
+        android:text="직원 프로필"
+        android:textSize="18sp"
         android:layout_marginBottom="16dp" />
 
     <ScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/todoLayout"
+            android:id="@+id/employeeProfilesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
