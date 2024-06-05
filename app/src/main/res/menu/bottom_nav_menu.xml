@@ -14,6 +14,6 @@
         android:title="TODO List" />
     <item
         android:id="@+id/navigation_profile_edit"
-        android:icon="@drawable/ic_baseline_people_alt_24"
+        android:icon="@drawable/ic_people"
         android:title="프로필 수정" />
 </menu>

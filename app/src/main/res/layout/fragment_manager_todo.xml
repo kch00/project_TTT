@@ -6,28 +6,30 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/etHandoverText"
+        android:id="@+id/etTodoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="인수인계"
+        android:hint="할 일 입력"
         android:layout_marginTop="8dp"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:background="#e0e0e0" />
 
     <Button
-        android:id="@+id/btnAddHandover"
+        android:id="@+id/btnAddTodo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="추가"
+        android:text="할 일 추가"
         android:layout_marginTop="8dp" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="8dp">
 
         <LinearLayout
-            android:id="@+id/handoverLayout"
+            android:id="@+id/todoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

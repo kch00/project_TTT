@@ -4,6 +4,11 @@
     package="com.example.profiletest2">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 저장소 권한, 인터넷 사용 -->
 
     <application
         android:allowBackup="true"
@@ -16,8 +21,10 @@
         android:theme="@style/Theme.ProfileTest2"
         tools:replace="android:label,android:icon,android:theme"
         tools:targetApi="31">
+        <!-- 앱 자체의 로고 변환, 이름 변경, 목표api 설정 -->
 
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:exported="true"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
@@ -25,13 +32,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 스플래시 사용 ( 앱을 부팅 시 로고가 나오고, 넘어갑니다 ) -->
 
-        <activity android:name=".ViewEmployeesActivity" android:label="직원 열람" />
-        <activity android:name=".LoginActivity" android:label="TTT" />
-        <activity android:name=".RegisterActivity" android:label="TTT" />
-        <activity android:name=".MainActivity" android:exported="true" android:label="TTT">
+        <activity
+            android:name=".ViewEmployeesActivity"
+            android:label="직원 열람" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="TTT" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="TTT" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="TTT">
             <meta-data android:name="android.app.lib_name" android:value="" />
         </activity>
+
 
     </application>
 

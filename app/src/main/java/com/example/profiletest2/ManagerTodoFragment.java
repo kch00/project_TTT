@@ -1,8 +1,13 @@
 package com.example.profiletest2;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
-public class TodoFragment extends Fragment {
+public class ManagerTodoFragment extends Fragment {
 
     private EditText etTodoText;
     private Button btnAddTodo;
@@ -31,7 +32,7 @@ public class TodoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_todo, container, false);
+        View view = inflater.inflate(R.layout.fragment_manager_todo, container, false);
 
         etTodoText = view.findViewById(R.id.etTodoText);
         btnAddTodo = view.findViewById(R.id.btnAddTodo);
@@ -46,7 +47,12 @@ public class TodoFragment extends Fragment {
         userId = sharedPreferences.getInt("userId", -1);
         isOwner = role.equals("사장");
 
-        btnAddTodo.setOnClickListener(v -> addTodoItem());
+        btnAddTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTodoItem();
+            }
+        });
 
         loadTodoItems(companyId);
 
@@ -78,15 +84,18 @@ public class TodoFragment extends Fragment {
         } else {
             textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
         }
-        textView.setOnLongClickListener(v -> {
-            int id = (int) v.getTag();
-            if (databaseHelper.deleteTodoItem(id)) {
-                todoLayout.removeView(v);
-                Toast.makeText(getContext(), "할일 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "할일 항목 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+        textView.setOnLongClickListener(new View.OnLongClickListener() { // 길게 누르면 삭제
+            @Override
+            public boolean onLongClick(View v) {
+                int id = (int) v.getTag();
+                if (databaseHelper.deleteTodoItem(id)) {
+                    todoLayout.removeView(v);
+                    Toast.makeText(getContext(), "할일 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "할일 항목 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
-            return true;
         });
         todoLayout.addView(textView);
     }
@@ -95,18 +104,15 @@ public class TodoFragment extends Fragment {
         Cursor cursor = databaseHelper.getTodoByCompanyId(companyId);
         if (cursor != null) {
             int todoIdIndex = cursor.getColumnIndexOrThrow("todo_id");
-            int usernameIndex = cursor.getColumnIndexOrThrow("username");
             int textIndex = cursor.getColumnIndexOrThrow("text");
             int roleIndex = cursor.getColumnIndexOrThrow("role");
 
             while (cursor.moveToNext()) {
                 int todoId = cursor.getInt(todoIdIndex);
-                String username = cursor.getString(usernameIndex);
                 String text = cursor.getString(textIndex);
                 String role = cursor.getString(roleIndex);
                 boolean isOwner = role.equals("사장");
-                String displayText = username + ": " + text;
-                addTodoTextView(todoId, displayText, isOwner);
+                addTodoTextView(todoId, text, isOwner);
             }
             cursor.close();
         }

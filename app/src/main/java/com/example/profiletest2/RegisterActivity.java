@@ -1,6 +1,5 @@
 package com.example.profiletest2;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -42,13 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean isOwner = cbOwner.isChecked();
 
                 if (!username.isEmpty() && !password.isEmpty() && !companyName.isEmpty() && !uniqueId.isEmpty()) {
-                    long result = databaseHelper.addUser(username, password, companyName, uniqueId, isOwner ? "사장" : "직원");
-
+                    long result = databaseHelper.addUser(username, password, companyName, uniqueId, isOwner ? "사장" : "직원", uniqueId);
                     if (result != -1) {
                         Toast.makeText(RegisterActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                        finish();
+                        finish(); // 회원가입 후 로그인 화면으로 돌아가기
                     } else {
-                        Toast.makeText(RegisterActivity.this, "회원가입에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(RegisterActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -59,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnBackToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finish(); // 로그인 화면으로 돌아가기
             }
         });
     }
