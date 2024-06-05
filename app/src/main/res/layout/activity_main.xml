@@ -13,9 +13,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/userInfoTextView"
@@ -32,7 +30,8 @@
                     android:hint="공지사항"
                     android:layout_marginTop="8dp"
                     android:padding="8dp"
-                    android:background="#e0e0e0" />
+                    android:background="#e0e0e0"
+                    android:enabled="false"/>
 
                 <EditText
                     android:id="@+id/etHandover"
@@ -41,7 +40,7 @@
                     android:hint="인수인계"
                     android:layout_marginTop="8dp"
                     android:padding="8dp"
-                    android:background="#e0e0e0" />
+                    android:background="#e0e0e0"/>
         </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView

@@ -42,14 +42,13 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean isOwner = cbOwner.isChecked();
 
                 if (!username.isEmpty() && !password.isEmpty() && !companyName.isEmpty() && !uniqueId.isEmpty()) {
-                    boolean isInserted = databaseHelper.insertUser(username, password, uniqueId, companyName, isOwner ? "사장" : "직원");
-                    if (isInserted) {
+                    long result = databaseHelper.addUser(username, password, companyName, uniqueId, isOwner ? "사장" : "직원");
+
+                    if (result != -1) {
                         Toast.makeText(RegisterActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(RegisterActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "회원가입에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(RegisterActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -60,9 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnBackToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish(); // 로그인 화면으로 돌아가기
+                finish();
             }
         });
     }
