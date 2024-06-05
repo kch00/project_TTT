@@ -64,6 +64,7 @@ public class CheckInOutFragment extends Fragment {
         }
     }
 
+
     private void saveState() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("isCheckedIn", isCheckedIn);
@@ -71,3 +72,5 @@ public class CheckInOutFragment extends Fragment {
         editor.apply();
     }
 }
+
+
