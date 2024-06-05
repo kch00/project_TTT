@@ -16,8 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import com.example.profiletest2.DatabaseHelper;
-import com.example.profiletest2.R;
 
 public class TodoFragment extends Fragment {
 
@@ -48,12 +46,7 @@ public class TodoFragment extends Fragment {
         userId = sharedPreferences.getInt("userId", -1);
         isOwner = role.equals("사장");
 
-        btnAddTodo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addTodoItem();
-            }
-        });
+        btnAddTodo.setOnClickListener(v -> addTodoItem());
 
         loadTodoItems(companyId);
 
@@ -85,18 +78,15 @@ public class TodoFragment extends Fragment {
         } else {
             textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
         }
-        textView.setOnLongClickListener(new View.OnLongClickListener() { // 길게 누르면 삭제
-            @Override
-            public boolean onLongClick(View v) {
-                int id = (int) v.getTag();
-                if (databaseHelper.deleteTodoItem(id)) {
-                    todoLayout.removeView(v);
-                    Toast.makeText(getContext(), "할일 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "할일 항목 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                }
-                return true;
+        textView.setOnLongClickListener(v -> {
+            int id = (int) v.getTag();
+            if (databaseHelper.deleteTodoItem(id)) {
+                todoLayout.removeView(v);
+                Toast.makeText(getContext(), "할일 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "할일 항목 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
+            return true;
         });
         todoLayout.addView(textView);
     }

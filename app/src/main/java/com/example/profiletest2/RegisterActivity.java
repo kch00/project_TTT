@@ -15,7 +15,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername, etPassword, etCompanyName, etUniqueId;
     private CheckBox cbOwner;
     private Button btnRegister, btnBackToLogin;
-    private SharedPreferences sharedPreferences;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnBackToLogin = findViewById(R.id.btnBackToLogin);
 
-        sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        databaseHelper = new DatabaseHelper(this);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,15 +42,15 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean isOwner = cbOwner.isChecked();
 
                 if (!username.isEmpty() && !password.isEmpty() && !companyName.isEmpty() && !uniqueId.isEmpty()) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(username + "_password", password);
-                    editor.putString(username + "_companyName", companyName);
-                    editor.putString(username + "_role", isOwner ? "사장" : "직원");
-                    editor.putString(username + "_uniqueId", uniqueId);
-                    editor.apply();
-
-                    Toast.makeText(RegisterActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    finish(); // 회원가입 후 로그인 화면으로 돌아가기
+                    boolean isInserted = databaseHelper.insertUser(username, password, uniqueId, companyName, isOwner ? "사장" : "직원");
+                    if (isInserted) {
+                        Toast.makeText(RegisterActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(RegisterActivity.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -60,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnBackToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish(); // 로그인 화면으로 돌아가기
             }
         });

@@ -46,31 +46,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_home:
                         selectedFragment = new HomeFragment();
-                        showMainLayout(true);
                         break;
                     case R.id.navigation_checkinout:
                         selectedFragment = new CheckInOutFragment();
-                        showMainLayout(false);
                         break;
                     case R.id.navigation_todo:
                         selectedFragment = new TodoFragment();
-                        showMainLayout(false);
                         break;
                     case R.id.navigation_profile_edit:
                         selectedFragment = new ProfileEditFragment();
-                        showMainLayout(false);
                         break;
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, selectedFragment).commit();
                 return true;
             };
-
-    private void showMainLayout(boolean show) {
-        if (show) {
-            mainLayout.setVisibility(View.VISIBLE);
-        } else {
-            mainLayout.setVisibility(View.GONE);
-        }
-    }
 }

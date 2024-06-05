@@ -1,60 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".ProfileEditFragment">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/profileImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/ic_profile_placeholder"
-        android:contentDescription="@string/profile_image" />
+        android:src="@drawable/ic_profile_placeholder"
+        android:scaleType="centerCrop"
+        android:background="@drawable/profile_image_border" />
+
+    <Button
+        android:id="@+id/btnSelectPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="사진 선택"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="이름" />
-
-    <Button
-        android:id="@+id/btnSelectPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="사진 선택" />
+        android:hint="이름"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="저장" />
+        android:text="저장"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnViewEmployees"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="직원 열람"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnDeleteAccount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="삭제하기" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvManagerProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text=""
         android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="삭제하기"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/holo_red_dark" />
 
 </LinearLayout>

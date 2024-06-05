@@ -42,6 +42,7 @@ public class ProfileEditFragment extends Fragment {
     private static final String FILE_PATH = "profiles/profile.txt";
     private DatabaseHelper databaseHelper;
     private SharedPreferences sharedPreferences;
+    private Uri selectedImageUri;
 
     @Nullable
     @Override
@@ -69,34 +70,18 @@ public class ProfileEditFragment extends Fragment {
             tvManagerProfile.setText(managerProfile);
         }
 
-        btnSelectPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestPermissionAndPickImage();
-            }
+        btnSelectPhoto.setOnClickListener(v -> requestPermissionAndPickImage());
+
+        btnSave.setOnClickListener(v -> saveProfile());
+
+        btnViewEmployees.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ViewEmployeesActivity.class);
+            startActivity(intent);
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveProfile();
-            }
-        });
+        btnDeleteAccount.setOnClickListener(v -> showDeleteConfirmationDialog());
 
-        btnViewEmployees.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ViewEmployeesActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteConfirmationDialog();
-            }
-        });
+        loadProfile();
 
         return view;
     }
@@ -130,14 +115,14 @@ public class ProfileEditFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-            profileImageView.setImageURI(imageUri); // 선택한 사진을 이미지뷰에 표시
+            selectedImageUri = data.getData();
+            profileImageView.setImageURI(selectedImageUri); // 선택한 사진을 이미지뷰에 표시
         }
     }
 
     private void saveProfile() {
-        String photoPath = ""; // 사용자가 선택한 사진의 경로
         String name = etName.getText().toString();
+        String photoPath = selectedImageUri != null ? selectedImageUri.toString() : "";
 
         try {
             File directory = new File(getContext().getFilesDir(), "profiles");
@@ -161,16 +146,23 @@ public class ProfileEditFragment extends Fragment {
         }
     }
 
+    private void loadProfile() {
+        File file = new File(getContext().getFilesDir(), FILE_PATH);
+        if (file.exists()) {
+            try {
+                // 파일에서 데이터를 읽어와서 프로필을 로드하는 로직을 추가합니다.
+                // 예시로 FileReader를 사용할 수 있습니다.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("계정 삭제")
                 .setMessage("삭제하시겠습니까?")
-                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        showFinalDeleteConfirmationDialog();
-                    }
-                })
+                .setPositiveButton("예", (dialog, which) -> showFinalDeleteConfirmationDialog())
                 .setNegativeButton("아니오", null)
                 .show()
                 .getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_red_dark));
@@ -181,12 +173,7 @@ public class ProfileEditFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("계정 삭제")
                 .setMessage("정말 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.")
-                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteAccount();
-                    }
-                })
+                .setPositiveButton("예", (dialog, which) -> deleteAccount())
                 .setNegativeButton("아니오", null)
                 .show()
                 .getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_red_dark));

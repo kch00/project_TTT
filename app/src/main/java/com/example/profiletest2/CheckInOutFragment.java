@@ -1,5 +1,7 @@
 package com.example.profiletest2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 public class CheckInOutFragment extends Fragment {
 
@@ -35,18 +35,15 @@ public class CheckInOutFragment extends Fragment {
         logTextView.setText(sharedPreferences.getString("log", ""));
         updateButtonText();
 
-        checkInOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isCheckedIn) {
-                    addLog("퇴근: ");
-                } else {
-                    addLog("출근: ");
-                }
-                isCheckedIn = !isCheckedIn;
-                updateButtonText();
-                saveState();
+        checkInOutButton.setOnClickListener(v -> {
+            if (isCheckedIn) {
+                addLog("퇴근: ");
+            } else {
+                addLog("출근: ");
             }
+            isCheckedIn = !isCheckedIn;
+            updateButtonText();
+            saveState();
         });
 
         return view;

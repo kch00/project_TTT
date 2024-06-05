@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".TodoFragment">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/etTodoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="할일 항목 입력"
-        android:layout_marginBottom="16dp" />
+        android:hint="할일 입력" />
 
     <Button
         android:id="@+id/btnAddTodo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="추가"
-        android:layout_marginBottom="16dp" />
+        android:text="추가" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
         <LinearLayout
             android:id="@+id/todoLayout"

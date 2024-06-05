@@ -1,30 +1,33 @@
 package com.example.profiletest2;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 public class HandoverFragment extends Fragment {
 
     private EditText etHandoverText;
     private Button btnAddHandover;
     private LinearLayout handoverLayout;
+    private ScrollView scrollView;
     private DatabaseHelper databaseHelper;
-    private SharedPreferences sharedPreferences;
-    private boolean isOwner;
     private int userId;
+    private boolean isOwner;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -34,14 +37,12 @@ public class HandoverFragment extends Fragment {
         etHandoverText = view.findViewById(R.id.etHandoverText);
         btnAddHandover = view.findViewById(R.id.btnAddHandover);
         handoverLayout = view.findViewById(R.id.handoverLayout);
+        scrollView = view.findViewById(R.id.scrollView);
 
         databaseHelper = new DatabaseHelper(getContext());
-        sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", getContext().MODE_PRIVATE);
-
-        String role = sharedPreferences.getString("role", "Unknown");
-        String companyId = sharedPreferences.getString("uniqueId", "Unknown");
+        sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
         userId = sharedPreferences.getInt("userId", -1);
-        isOwner = role.equals("사장");
+        isOwner = "사장".equals(sharedPreferences.getString("role", "Unknown"));
 
         btnAddHandover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,7 @@ public class HandoverFragment extends Fragment {
             }
         });
 
-        loadHandoverItems(companyId);
+        loadHandoverItems();
 
         return view;
     }
@@ -74,13 +75,13 @@ public class HandoverFragment extends Fragment {
         TextView textView = new TextView(getContext());
         textView.setText(text);
         textView.setPadding(16, 16, 16, 16);
-        textView.setTag(handoverId); // handoverId를 태그로 설정
+        textView.setTag(handoverId);
         if (isOwner) {
             textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_red_dark));
         } else {
             textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.black));
         }
-        textView.setOnLongClickListener(new View.OnLongClickListener() { // 길게 누르면 삭제
+        textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 int id = (int) v.getTag();
@@ -96,22 +97,19 @@ public class HandoverFragment extends Fragment {
         handoverLayout.addView(textView);
     }
 
-    private void loadHandoverItems(String companyId) {
-        Cursor cursor = databaseHelper.getHandoverByCompanyId(companyId);
+    private void loadHandoverItems() {
+        Cursor cursor = databaseHelper.getHandoverByCompanyId(sharedPreferences.getString("uniqueId", ""));
         if (cursor != null) {
             int handoverIdIndex = cursor.getColumnIndexOrThrow("handover_id");
-            int usernameIndex = cursor.getColumnIndexOrThrow("username");
             int textIndex = cursor.getColumnIndexOrThrow("text");
             int roleIndex = cursor.getColumnIndexOrThrow("role");
 
             while (cursor.moveToNext()) {
                 int handoverId = cursor.getInt(handoverIdIndex);
-                String username = cursor.getString(usernameIndex);
                 String text = cursor.getString(textIndex);
                 String role = cursor.getString(roleIndex);
-                boolean isOwner = role.equals("사장");
-                String displayText = username + ": " + text;
-                addHandoverTextView(handoverId, displayText, isOwner);
+                boolean isOwner = "사장".equals(role);
+                addHandoverTextView(handoverId, text, isOwner);
             }
             cursor.close();
         }

@@ -9,7 +9,8 @@
         android:id="@+id/etHandoverText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="인수인계 입력"
+        android:hint="인수인계"
+        android:layout_marginTop="8dp"
         android:padding="8dp" />
 
     <Button
@@ -22,7 +23,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="8dp">
 
         <LinearLayout
@@ -30,5 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
+
     </ScrollView>
 </LinearLayout>

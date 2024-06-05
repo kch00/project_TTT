@@ -173,18 +173,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_USERS, COLUMN_USERNAME + " = ?", new String[]{username}) > 0;
     }
+
     // 모든 직원 정보를 가져오는 메서드 추가
     public Cursor getAllEmployees() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_ROLE + " = '직원'";
         return db.rawQuery(query, null);
     }
+
     // 공지사항 및 인수인계 로드 메서드 추가
     public Cursor getNoticeAndHandover(int userId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT notice, handover FROM " + TABLE_USERS + " WHERE " + COLUMN_USER_ID + " = ?";
-        return db.rawQuery(query, new String[]{String.valueOf(userId)});
+        String query = "SELECT * FROM " + TABLE_NOTICE + " WHERE " + COLUMN_USER_ID + " = ? " +
+                "UNION ALL " +
+                "SELECT * FROM " + TABLE_HANDOVER + " WHERE " + COLUMN_USER_ID + " = ?";
+        return db.rawQuery(query, new String[]{String.valueOf(userId), String.valueOf(userId)});
     }
 
-
+    // 사용자 정보 가져오는 메서드
+    public Cursor getUser(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+        return db.rawQuery(query, new String[]{username, password});
+    }
 }

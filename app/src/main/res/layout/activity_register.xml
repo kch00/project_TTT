@@ -1,62 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center"
-    tools:context=".RegisterActivity">
-
-    <Button
-        android:id="@+id/btnBackToLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="뒤로가기"
-        android:layout_marginBottom="16dp" />
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="아이디"
-        android:inputType="text" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"
+        android:inputType="text"/>
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="비밀번호"
-        android:inputType="textPassword"
-        android:layout_marginTop="16dp" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"
+        android:inputType="textPassword"/>
 
     <EditText
         android:id="@+id/etCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="회사 이름"
-        android:inputType="text"
-        android:layout_marginTop="16dp" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"
+        android:inputType="text"/>
 
     <EditText
         android:id="@+id/etUniqueId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="고유 ID"
-        android:inputType="text"
-        android:layout_marginTop="16dp" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"
+        android:inputType="text"/>
 
     <CheckBox
         android:id="@+id/cbOwner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="사장"
-        android:layout_marginTop="16dp" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="회원가입"
-        android:layout_marginTop="16dp" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/btnBackToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그인 화면으로"
+        android:padding="8dp"/>
 </LinearLayout>
