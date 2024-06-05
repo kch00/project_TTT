@@ -9,22 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import com.example.profiletest2.DatabaseHelper;
-import com.example.profiletest2.R;
 
-public class TodoFragment extends Fragment {
+public class HandoverFragment extends Fragment {
 
-    private EditText etTodoText;
-    private Button btnAddTodo;
-    private LinearLayout todoLayout;
-    private ScrollView scrollView;
+    private EditText etHandoverText;
+    private Button btnAddHandover;
+    private LinearLayout handoverLayout;
     private DatabaseHelper databaseHelper;
     private SharedPreferences sharedPreferences;
     private boolean isOwner;
@@ -33,12 +29,11 @@ public class TodoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_todo, container, false);
+        View view = inflater.inflate(R.layout.fragment_handover, container, false);
 
-        etTodoText = view.findViewById(R.id.etTodoText);
-        btnAddTodo = view.findViewById(R.id.btnAddTodo);
-        todoLayout = view.findViewById(R.id.todoLayout);
-        scrollView = view.findViewById(R.id.scrollView);
+        etHandoverText = view.findViewById(R.id.etHandoverText);
+        btnAddHandover = view.findViewById(R.id.btnAddHandover);
+        handoverLayout = view.findViewById(R.id.handoverLayout);
 
         databaseHelper = new DatabaseHelper(getContext());
         sharedPreferences = getActivity().getSharedPreferences("LoginPrefs", getContext().MODE_PRIVATE);
@@ -48,38 +43,38 @@ public class TodoFragment extends Fragment {
         userId = sharedPreferences.getInt("userId", -1);
         isOwner = role.equals("사장");
 
-        btnAddTodo.setOnClickListener(new View.OnClickListener() {
+        btnAddHandover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addTodoItem();
+                addHandoverItem();
             }
         });
 
-        loadTodoItems(companyId);
+        loadHandoverItems(companyId);
 
         return view;
     }
 
-    private void addTodoItem() {
-        String text = etTodoText.getText().toString();
+    private void addHandoverItem() {
+        String text = etHandoverText.getText().toString();
         if (!text.isEmpty()) {
-            long result = databaseHelper.addTodoItem(userId, text, isOwner ? "사장" : "직원");
+            long result = databaseHelper.addHandoverItem(userId, text, isOwner ? "사장" : "직원");
             if (result != -1) {
-                int todoId = (int) result;
-                addTodoTextView(todoId, text, isOwner);
-                etTodoText.setText("");
-                Toast.makeText(getContext(), "할일 항목이 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                int handoverId = (int) result;
+                addHandoverTextView(handoverId, text, isOwner);
+                etHandoverText.setText("");
+                Toast.makeText(getContext(), "인수인계 항목이 추가되었습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getContext(), "할일 항목 추가에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "인수인계 항목 추가에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void addTodoTextView(int todoId, String text, boolean isOwner) {
+    private void addHandoverTextView(int handoverId, String text, boolean isOwner) {
         TextView textView = new TextView(getContext());
         textView.setText(text);
         textView.setPadding(16, 16, 16, 16);
-        textView.setTag(todoId); // todoId를 태그로 설정
+        textView.setTag(handoverId); // handoverId를 태그로 설정
         if (isOwner) {
             textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.holo_red_dark));
         } else {
@@ -89,34 +84,34 @@ public class TodoFragment extends Fragment {
             @Override
             public boolean onLongClick(View v) {
                 int id = (int) v.getTag();
-                if (databaseHelper.deleteTodoItem(id)) {
-                    todoLayout.removeView(v);
-                    Toast.makeText(getContext(), "할일 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                if (databaseHelper.deleteHandoverItem(id)) {
+                    handoverLayout.removeView(v);
+                    Toast.makeText(getContext(), "인수인계 항목이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "할일 항목 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "인수인계 항목 삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
         });
-        todoLayout.addView(textView);
+        handoverLayout.addView(textView);
     }
 
-    private void loadTodoItems(String companyId) {
-        Cursor cursor = databaseHelper.getTodoByCompanyId(companyId);
+    private void loadHandoverItems(String companyId) {
+        Cursor cursor = databaseHelper.getHandoverByCompanyId(companyId);
         if (cursor != null) {
-            int todoIdIndex = cursor.getColumnIndexOrThrow("todo_id");
+            int handoverIdIndex = cursor.getColumnIndexOrThrow("handover_id");
             int usernameIndex = cursor.getColumnIndexOrThrow("username");
             int textIndex = cursor.getColumnIndexOrThrow("text");
             int roleIndex = cursor.getColumnIndexOrThrow("role");
 
             while (cursor.moveToNext()) {
-                int todoId = cursor.getInt(todoIdIndex);
+                int handoverId = cursor.getInt(handoverIdIndex);
                 String username = cursor.getString(usernameIndex);
                 String text = cursor.getString(textIndex);
                 String role = cursor.getString(roleIndex);
                 boolean isOwner = role.equals("사장");
                 String displayText = username + ": " + text;
-                addTodoTextView(todoId, displayText, isOwner);
+                addHandoverTextView(handoverId, displayText, isOwner);
             }
             cursor.close();
         }

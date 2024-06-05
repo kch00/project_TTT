@@ -3,11 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etNotice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="공지사항"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:background="#e0e0e0" />
+
+    <EditText
+        android:id="@+id/etHandover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="인수인계"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:background="#e0e0e0" />
 
     <Button
-        android:id="@+id/logoutButton"
+        android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="로그아웃" />
+        android:text="로그아웃"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

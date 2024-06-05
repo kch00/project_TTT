@@ -6,65 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/userInfoTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="사용자 정보"
-            android:textSize="16sp"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/etNotice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="공지사항 (사장만 편집 가능)"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@id/userInfoTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:enabled="false"
-            android:background="#e0e0e0" />
+                <TextView
+                    android:id="@+id/userInfoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="사용자 정보"
+                    android:textSize="16sp"
+                    android:padding="8dp"/>
 
-        <EditText
-            android:id="@+id/etHandover"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="인수인계"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@id/etNotice"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="#e0e0e0" />
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/etHandover"
-            app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-                <LinearLayout
-                    android:id="@+id/attendanceLayout"
+                <EditText
+                    android:id="@+id/etNotice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:hint="공지사항"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp"
+                    android:background="#e0e0e0" />
 
-        </ScrollView>
+                <EditText
+                    android:id="@+id/etHandover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="인수인계"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp"
+                    android:background="#e0e0e0" />
+        </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/etHandover"
+            app:layout_constraintTop_toBottomOf="@id/mainLayout"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
