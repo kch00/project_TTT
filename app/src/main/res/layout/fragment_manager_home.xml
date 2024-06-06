@@ -6,28 +6,31 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/etNotice"
+        android:id="@+id/etNoticeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="공지사항"
+        android:hint="공지사항을 입력하세요"
         android:layout_marginTop="8dp"
         android:padding="8dp"
         android:background="#e0e0e0" />
 
     <Button
-        android:id="@+id/btnSaveNotice"
+        android:id="@+id/btnAddNotice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="공지사항 저장"
+        android:text="공지사항 추가"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp" />
 
-    <TextView
-        android:id="@+id/tvNotice"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="#f0f0f0"
-        android:text="공지사항 내용이 여기에 표시됩니다." />
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
 
+        <LinearLayout
+            android:id="@+id/noticeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </LinearLayout>

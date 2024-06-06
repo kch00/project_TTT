@@ -5,12 +5,15 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvNotice"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="#f0f0f0"
-        android:text="공지사항 내용이 여기에 표시됩니다." />
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp">
 
+        <LinearLayout
+            android:id="@+id/noticeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </LinearLayout>
